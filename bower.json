@@ -13,7 +13,7 @@
     "angular-touch": "^1.4.0",
     "font-awesome": "^4.6.3",
 
-
+//    "uiGmapgoogle-maps": "",
     "ngGeolocation": ">=0.0.2"
   },
   "devDependencies": {

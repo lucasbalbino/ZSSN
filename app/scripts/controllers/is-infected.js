@@ -18,8 +18,6 @@ angular.module('zssnApp')
 
         $scope.people = [];
 
-        retrievePeople();
-
         function retrievePeople() {
             $scope.people = [];
 
@@ -28,18 +26,21 @@ angular.module('zssnApp')
                     var retrievedPeople = response.data;
 
                     for (var i = 0; i < retrievedPeople.length; i++) {
-                        if (!retrievedPeople[i]["infected?"])
+                        if (!retrievedPeople[i]['infected?']) {
                             $scope.people.push(retrievedPeople[i]);
+                        }
                     }
 
 
-                    for (var i = 0; i < $scope.people.length; i++) {
-                        var parts = $scope.people[i].location.split("/");
+                    for (i = 0; i < $scope.people.length; i++) {
+                        var parts = $scope.people[i].location.split('/');
                         $scope.people[i].id = parts[parts.length - 1];
                     }
                 }
-            )
+            );
         }
+
+        retrievePeople();
 
         $scope.processInfection = function() {
             $scope.reportInfection = true;
@@ -48,13 +49,13 @@ angular.module('zssnApp')
 
             $scope.selectedFromSurvivor = null;
             $scope.selectedToSurvivor = null;
-        }
+        };
 
         $scope.flagInfection = function () {
             $scope.submitted = true;
 
             if ($scope.selectedFromSurvivor && $scope.selectedToSurvivor) {
-                if ($scope.selectedFromSurvivor.id != $scope.selectedToSurvivor.id) {
+                if ($scope.selectedFromSurvivor.id !== $scope.selectedToSurvivor.id) {
 
                     $http.post(domain + '/api/people/'+ $scope.selectedFromSurvivor.id +'/report_infection.json', {
                         infected: $scope.selectedToSurvivor.id,

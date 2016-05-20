@@ -23,7 +23,7 @@ angular.module('zssnApp')
                 id: 0
             },
             events: {
-                tilesloaded: function (map, eventName, originalEventArgs) {
+                tilesloaded: function () {
                 },
 
                 click: function (mapModel, eventName, originalEventArgs) {
@@ -34,7 +34,7 @@ angular.module('zssnApp')
 
                     $scope.map.marker.latitude = lat;
                     $scope.map.marker.longitude = lon;
-                    $scope.survivor.lonlat = "POINT (" + lat + " " + lon + ")";
+                    $scope.survivor.lonlat = 'POINT (' + lat + ' ' + lon + ')';
 
                     //scope apply required because this event handler is outside of the angular domain
                     $scope.$evalAsync();
@@ -42,9 +42,7 @@ angular.module('zssnApp')
             }
         };
 
-        uiGmapGoogleMapApi.then(function (maps) {
-
-            currentLocation();
+        uiGmapGoogleMapApi.then(function () {
 
             function currentLocation() {
                 $geolocation.getCurrentPosition({
@@ -61,13 +59,15 @@ angular.module('zssnApp')
 
                         $scope.map.marker.latitude = lat;
                         $scope.map.marker.longitude = lon;
-                        $scope.survivor.lonlat = "POINT (" + lat + " " + lon + ")";
+                            $scope.survivor.lonlat = 'POINT (' + lat + ' ' + lon + ')';
                     },
                     function (positionError) {
                         $scope.geolocationError = positionError.error.message;
                     }
-                )
+                );
             }
+
+            currentLocation();
         });
 
         $scope.submitted = false;
@@ -98,14 +98,14 @@ angular.module('zssnApp')
         };
 
         function transformItems(items) {
-            return 'Water:' + items.water
-                + ';Food:' + items.food
-                + ';Medication:' + items.medication
-                + ';Ammunition:' + items.ammunition + ';';
+            return 'Water:' + items.water +
+                ';Food:' + items.food +
+                ';Medication:' + items.medication +
+                ';Ammunition:' + items.ammunition + ';';
         }
 
         $scope.reloadRoute = function () {
             $route.reload();
-        }
+        };
     })
 ;

@@ -63,4 +63,3 @@ angular
         $scope.url = domain;
     })
     .constant('domain', 'http://zssn-backend-example.herokuapp.com');
-;

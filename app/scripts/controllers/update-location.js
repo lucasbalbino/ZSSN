@@ -38,7 +38,7 @@ angular.module('zssnApp')
                 id: 0
             },
             events: {
-                tilesloaded: function (map, eventName, originalEventArgs) {
+                tilesloaded: function () {
                 },
 
                 click: function (mapModel, eventName, originalEventArgs) {
@@ -48,7 +48,7 @@ angular.module('zssnApp')
 
                     $scope.newMap.marker.latitude = lat;
                     $scope.newMap.marker.longitude = lon;
-                    $scope.newLocation = {lonlat: "POINT (" + lat + " " + lon + ")"};
+                    $scope.newLocation = {lonlat: 'POINT (' + lat + ' ' + lon + ')'};
 
                     //scope apply required because this event handler is outside of the angular domain
                     $scope.$evalAsync();
@@ -58,30 +58,29 @@ angular.module('zssnApp')
 
         $scope.people = [];
 
-        retrievePeople();
-
         function retrievePeople() {
             $http.get(domain + '/api/people.json').then(
                 function (response) {
                     var retrievedPeople = response.data;
 
                     for (var i = 0; i < retrievedPeople.length; i++) {
-                        if (!retrievedPeople[i]["infected?"])
+                        if (!retrievedPeople[i]['infected?']) {
                             $scope.people.push(retrievedPeople[i]);
+                        }
                     }
 
 
-                    for (var i = 0; i < $scope.people.length; i++) {
-                        var parts = $scope.people[i].location.split("/");
+                    for (i = 0; i < $scope.people.length; i++) {
+                        var parts = $scope.people[i].location.split('/');
                         $scope.people[i].id = parts[parts.length - 1];
                     }
                 }
-            )
+            );
         }
 
-        uiGmapGoogleMapApi.then(function (maps) {
+        retrievePeople();
 
-            currentLocation();
+        uiGmapGoogleMapApi.then(function () {
 
             function currentLocation() {
                 $geolocation.getCurrentPosition({
@@ -98,18 +97,20 @@ angular.module('zssnApp')
 
                         $scope.newMap.marker.latitude = lat;
                         $scope.newMap.marker.longitude = lon;
-                        $scope.newLocation = {lonlat: "POINT (" + lat + " " + lon + ")"};
+                        $scope.newLocation = {lonlat: 'POINT (' + lat + ' ' + lon + ')'};
                     },
                     function (positionError) {
                         $scope.geolocationError = positionError.error.message;
                     }
-                )
+                );
             }
+
+            currentLocation();
         });
 
         $scope.updateCurrentMap = function (survivor) {
             var regex = /\(([^()]+)\)/g;
-            var coords = (regex.exec(survivor.lonlat)[1]).split(" ");
+            var coords = (regex.exec(survivor.lonlat)[1]).split(' ');
 
             var lon = coords[1];
             var lat = coords[0];
@@ -160,7 +161,7 @@ angular.module('zssnApp')
 
         $scope.isSameLocation = function (m1, m2) {
             if(m1 && m2) {
-                return (m1.latitude == m2.latitude) && (m1.longitude == m2.longitude);
+                return (m1.latitude === m2.latitude) && (m1.longitude === m2.longitude);
             } else {
                 return false;
             }

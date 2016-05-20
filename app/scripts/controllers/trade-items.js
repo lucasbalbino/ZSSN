@@ -51,26 +51,27 @@ angular.module('zssnApp')
 
         $scope.people = [];
 
-        retrievePeople();
-
         function retrievePeople() {
             $http.get(domain + '/api/people.json').then(
                 function (response) {
                     var retrievedPeople = response.data;
 
                     for (var i = 0; i < retrievedPeople.length; i++) {
-                        if (!retrievedPeople[i]["infected?"])
+                        if (!retrievedPeople[i]['infected?']) {
                             $scope.people.push(retrievedPeople[i]);
+                        }
                     }
 
 
-                    for (var i = 0; i < $scope.people.length; i++) {
-                        var parts = $scope.people[i].location.split("/");
+                    for (i = 0; i < $scope.people.length; i++) {
+                        var parts = $scope.people[i].location.split('/');
                         $scope.people[i].id = parts[parts.length - 1];
                     }
                 }
-            )
+            );
         }
+
+        retrievePeople();
 
         $scope.fetchProperties = function (survivor) {
             $http.get(domain + '/api/people/' + survivor.id + '/properties.json').then(
@@ -85,25 +86,25 @@ angular.module('zssnApp')
                     };
 
                     for (var i = 0; i < properties.length; i++) {
-                        if (properties[i].item.name == "Water") {
+                        if (properties[i].item.name === 'Water') {
                             survivor.item.water = properties[i].quantity;
                             $scope.points.water = properties[i].item.points;
                         }
-                        else if (properties[i].item.name == "Food") {
+                        else if (properties[i].item.name === 'Food') {
                             survivor.item.food = properties[i].quantity;
                             $scope.points.food = properties[i].item.points;
                         }
-                        else if (properties[i].item.name == "Medication") {
+                        else if (properties[i].item.name === 'Medication') {
                             survivor.item.medication = properties[i].quantity;
                             $scope.points.medication = properties[i].item.points;
                         }
-                        else if (properties[i].item.name == "Ammunition") {
+                        else if (properties[i].item.name === 'Ammunition') {
                             survivor.item.ammunition = properties[i].quantity;
                             $scope.points.ammunition = properties[i].item.points;
                         }
                     }
                 }
-            )
+            );
         };
 
         $scope.computePoints = function (items) {
@@ -116,15 +117,15 @@ angular.module('zssnApp')
 
         $scope.submitted = false;
 
-        $scope.processTrade = function() {
+        $scope.processTrade = function () {
             $scope.submitted = true;
 
-            if($scope.selectedFromSurvivor.name && $scope.selectedToSurvivor.name) {
+            if ($scope.selectedFromSurvivor.name && $scope.selectedToSurvivor.name) {
                 if ($scope.computePoints($scope.itemsFrom) > 0 && $scope.computePoints($scope.itemsTo) > 0) {
-                    if ($scope.selectedFromSurvivor.id != $scope.selectedToSurvivor.id) {
-                        if ($scope.computePoints($scope.itemsFrom) == $scope.computePoints($scope.itemsTo)) {
+                    if ($scope.selectedFromSurvivor.id !== $scope.selectedToSurvivor.id) {
+                        if ($scope.computePoints($scope.itemsFrom) === $scope.computePoints($scope.itemsTo)) {
 
-                            $http.post(domain + '/api/people/'+ $scope.selectedFromSurvivor.id +'/properties/trade_item.json', {
+                            $http.post(domain + '/api/people/' + $scope.selectedFromSurvivor.id + '/properties/trade_item.json', {
                                 person_id: $scope.selectedFromSurvivor.id,
                                 consumer: {
                                     name: $scope.selectedToSurvivor.name,
@@ -146,16 +147,16 @@ angular.module('zssnApp')
                     }
                 }
             }
-        }
+        };
 
         function transformItems(items) {
-            return 'Water:' + items.water
-                + ';Food:' + items.food
-                + ';Medication:' + items.medication
-                + ';Ammunition:' + items.ammunition + ';';
+            return 'Water:' + items.water +
+                ';Food:' + items.food +
+                ';Medication:' + items.medication +
+                ';Ammunition:' + items.ammunition + ';';
         }
 
-        $scope.reloadRoute = function() {
+        $scope.reloadRoute = function () {
             $route.reload();
-        }
+        };
     });

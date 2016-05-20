@@ -12,11 +12,9 @@ angular.module('zssnApp')
         $scope.submitted = false;
         $scope.processed = false;
 
-        $scope.answer = "";
+        $scope.answer = '';
 
         $scope.infectedPeople = [];
-
-        retrieveInfectedPeople();
 
         function retrieveInfectedPeople() {
             $scope.infectedPeople = [];
@@ -26,26 +24,29 @@ angular.module('zssnApp')
                     var retrievedPeople = response.data;
 
                     for (var i = 0; i < retrievedPeople.length; i++) {
-                        if (retrievedPeople[i]["infected?"])
+                        if (retrievedPeople[i]['infected?']) {
                             $scope.infectedPeople.push(retrievedPeople[i]);
+                        }
                     }
 
 
-                    for (var i = 0; i < $scope.infectedPeople.length; i++) {
-                        var parts = $scope.infectedPeople[i].location.split("/");
+                    for (i = 0; i < $scope.infectedPeople.length; i++) {
+                        var parts = $scope.infectedPeople[i].location.split('/');
                         $scope.infectedPeople[i].id = parts[parts.length - 1];
                     }
                 }
             );
         }
 
+        retrieveInfectedPeople();
+
         $scope.processQuestion = function () {
             $scope.processed = true;
-            if ($scope.answer != "42") {
+            if ($scope.answer !== '42') {
                 $scope.seconds = 10;
 
                 $scope.onTimeout = function () {
-                    if ($scope.seconds == 1) {
+                    if ($scope.seconds === 1) {
                         $timeout(function () {
                             $timeout.cancel(timer);
                         }, 1000);
@@ -57,6 +58,6 @@ angular.module('zssnApp')
 
                 var timer = $timeout($scope.onTimeout, 1000);
             }
-        }
+        };
 
     });
