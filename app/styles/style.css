@@ -1,0 +1,502 @@
+/*=======================================================
+/           Reset
+========================================================*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: baseline;
+    background: transparent
+}
+
+body {
+    line-height: 1
+}
+
+ol, ul {
+    list-style: none
+}
+
+blockquote, q {
+    quotes: none
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none
+}
+
+:focus {
+    outline: 0
+}
+
+ins {
+    text-decoration: none
+}
+
+del {
+    text-decoration: line-through
+}
+
+input, select, textarea, button {
+    -webkit-appearance: none;
+}
+
+/*=======================================================
+/           Fontes
+========================================================*/
+
+@font-face {
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*=======================================================
+/           Global
+========================================================*/
+
+body {
+    color: #292b2a;
+    background: #000;
+    font-size: 15px;
+    font-family: 'Roboto', Helvetica, Lato, sans-serif;
+}
+
+input, select, textarea, button {
+    font-family: 'Roboto', Helvetica, Lato, sans-serif;
+    font-size: 15px;
+    color: #292b2a;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+* {
+    outline: none !important;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+section {
+    position: relative;
+}
+
+h1 {
+    font-size: 32px;
+}
+
+h2 {
+    font-size: 28px;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+h4 {
+    font-size: 20px;
+}
+
+h5 {
+    font-size: 18px;
+}
+
+h6 {
+    font-size: 16px;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+}
+
+::-webkit-input-placeholder {
+    opacity: 1 !important;
+    color: #444444;
+    font-size: 16px;
+}
+
+:-moz-placeholder {
+    opacity: 1 !important;
+    color: #444444;
+    font-size: 16px;
+}
+
+::-moz-placeholder {
+    opacity: 1 !important;
+    color: #444444;
+    font-size: 16px;
+}
+
+:-ms-input-placeholder {
+    opacity: 1 !important;
+    color: #444444;
+    font-size: 16px;
+}
+
+:focus::-webkit-input-placeholder {
+    opacity: 0.5 !important;
+}
+
+:focus:-moz-placeholder {
+    opacity: 0.5 !important;
+}
+
+:focus::-moz-placeholder {
+    opacity: 0.5 !important;
+}
+
+:focus:-ms-input-placeholder {
+    opacity: 0.5 !important;
+}
+
+a {
+    color: #eee;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ff5a36;
+}
+
+.mb-50 {
+    margin-bottom: 50px;
+}
+
+.mb-80 {
+    margin-bottom: 80px;
+}
+
+.mb-100 {
+    margin-bottom: 100px;
+}
+
+div[role=log] {
+    display: none;
+}
+
+.btn-default {
+    text-align: center;
+    color: #fff;
+    background: #f5811f;
+    border: 0;
+    border-radius: 2px;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    text-transform: uppercase;
+    margin: 3px 0;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.5s;
+
+}
+
+.btn-default:hover,
+.btn-default:active,
+.btn-default:focus {
+    background-color: #915002;
+    color: #fff;
+}
+
+.btn-cancel {
+    text-align: center;
+    color: #fff;
+    background: #666;
+    border: 0;
+    border-radius: 2px;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    text-transform: uppercase;
+    margin: 3px 0;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.5s;
+
+}
+
+.btn-cancel:hover,
+.btn-cancel:active,
+.btn-cancel:focus {
+    background-color: #444;
+    color: #fff;
+}
+
+h2.title {
+    font-family: 'Roboto', Helvetica, Lato, sans-serif;
+    font-weight: normal;
+    font-size: 43px;
+    color: #fff;
+    text-transform: uppercase;
+    position: relative;
+    margin-bottom: 65px;
+}
+
+h2.title:before {
+    content: ' ';
+    position: absolute;
+    width: 84px;
+    left: 50%;
+    margin-left: -42px;
+    height: 1px;
+    background: #fff;
+    top: -30px;
+}
+
+select {
+    width: 200px;
+    height: 35px;
+}
+
+label {
+    padding: 0 15px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    background-color: #f68f37;
+    color: #000;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+
+.title a {
+    color: #000;
+    text-decoration: none;
+}
+
+.title a:hover {
+    color: #000;
+}
+
+/*=======================================================
+/           CABECALHO
+========================================================*/
+
+#cabecalho {
+    height: 200px;
+    text-align: left;
+    color: #fff;
+}
+
+#cabecalho h2 {
+    font-size: 40px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+#cabecalho p {
+    max-width: 100%;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 34px;
+    margin: 0 auto -10px;
+}
+
+#cabecalho p strong {
+    font-weight: 900;
+}
+
+#cabecalho a.btn {
+    padding: 8px 12px;
+    vertical-align: middle;
+}
+
+.cabecalho-esquerdo {
+    width: 55%;
+    padding: 50px 0;
+    float: left;
+    text-align: right;
+}
+
+.cabecalho-direito {
+    width: 45%;
+    padding: 35px;
+    float: left;
+}
+
+/*=======================================================
+/           OPCOES
+========================================================*/
+
+#opcoes {
+    padding-top: 30px;
+}
+
+.options {
+    float: left;
+    text-align: center;
+    padding: 30px;
+    color: #fff;
+    width: 33.3333%;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 24px;
+}
+
+.options a {
+    color: #f5811f;
+    font-size: 34px;
+    font-weight: 900;
+    line-height: 100px;
+    text-transform: uppercase;
+}
+
+.options a:hover,
+.options a:active,
+.options a:focus {
+    color: #f68f37;
+}
+
+/*=======================================================
+/           TRADE / ADDITION
+========================================================*/
+
+.trade, .addition {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 24px;
+    color: #eee;
+}
+
+.trade p, .addition p,
+.highlighted {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 66px;
+    color: #f5811f;
+    padding: 0 30px;
+}
+
+.trade table, .addition table {
+    display: inline;
+}
+
+.list {
+    float: left;
+    width: 50%;
+    padding-right: 87px;
+    line-height: 30px;
+    text-align: right;
+}
+
+.list input {
+    width: 50px;
+}
+
+.form {
+    float: left;
+    width: 50%;
+    line-height: 40px;
+    text-align: left;
+}
+
+.form input.sm,
+.form select.sm {
+    width: 50px;
+    height: 24px;
+}
+
+.form input.lg {
+    width: 250px;
+}
+
+.trade .btn, .addition .btn {
+    padding: 10px 30px;
+}
+
+.trade .footer, .addition .footer {
+    padding: 30px;
+}
+
+.danger {
+    color: red;
+}
+
+.success {
+    color: limegreen;
+}
+
+.info {
+    color: dodgerblue;
+}
+
+.angular-google-map-container {
+    height: 400px;
+    width: 500px;
+}
+
+.lonlat {
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 34px;
+    margin: 0 auto -10px;
+}
+
+.question {
+    font-size: 56px;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 70px;
+}
+
+#question {
+    height: 40px;
+    width: 500px;
+}
+
+.small {
+    font-size: 10px;
+    text-align: right;
+    width: 100%;
+}
+
+@media (max-width: 767px) {
+    #opcoes .item {
+        padding: 0 20px;
+        height: 250px;
+    }
+
+}
+
+@media (max-width: 630px) {
+
+    #cabecalho h2,
+    h2.title {
+        font-size: 36px;
+    }
+
+    #cabecalho p {
+        font-size: 22px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    #cabecalho h2,
+    h2.title {
+        font-size: 30px;
+    }
+
+    #cabecalho p {
+        font-size: 16px;
+    }
+
+}
+
+@media (max-width: 360px) {
+
+    #cabecalho h2,
+    h2.title {
+        font-size: 28px;
+    }
+
+}

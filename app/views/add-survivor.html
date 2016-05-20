@@ -1,0 +1,88 @@
+<div class="addition" ng-controller="AddSurvivorCtrl">
+    <p>Adding new survivors</p>
+
+    <form name="form" novalidate>
+        <table ng-show="!processed">
+            <tr>
+                <td class="form">
+                    <label for="name">Name</label>
+                    <input id="name" name="name" class="lg" type="text" ng-model="survivor.name" ng-minlength="3" required><br>
+
+                    <label for="age">Age</label>
+                    <input id="age" class="sm" type="number" ng-model="survivor.age" min="0" required><br>
+
+                    <label for="gender">Gender</label>
+                    <select id="gender" class="sm" ng-model="survivor.gender" required>
+                        <option value="M">M</option>
+                        <option value="F">F</option>
+                    </select>
+                    <br><br><br>
+
+                    <span id="items">Items<br>
+                        <label for="itemWater">Water <i class="fa fa-tint"></i></label>
+                        <input id="itemWater" class="sm" name="itemWater" type="number"
+                               ng-model="survivor.item.water" min="0"
+                               required><br>
+
+                        <label for="itemFood">Food <i class="fa fa-cutlery"></i></label>
+                        <input id="itemFood" class="sm" name="itemFood" type="number" ng-model="survivor.item.food"
+                               min="0"
+                               required><br>
+
+                        <label for="itemMedication">Medication <i class="fa fa-medkit"></i></label>
+                        <input id="itemMedication" class="sm" name="itemMedication" type="number"
+                               ng-model="survivor.item.medication" min="0" required><br>
+
+                        <label for="itemAmmunition">Ammunition <i class="fa fa-bomb"></i></label>
+                        <input id="itemAmmunition" class="sm" name="itemAmmunition" type="number"
+                               ng-model="survivor.item.ammunition" min="0" required><br>
+                    </span>
+                </td>
+                <td class="form">
+                    <label for="location">Location:</label> <span class="lonlat">{{survivor.lonlat}}</span><br>
+                    <ui-gmap-google-map id="location" center="map.center" zoom="map.zoom"
+                                        options="map.options" events="map.events">
+
+                        <ui-gmap-marker coords="map.marker" idkey="map.marker.id" options="map.marker.options" events="map.marker.events">
+                        </ui-gmap-marker>
+
+                    </ui-gmap-google-map>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td class="footer">
+                    <div>
+                        <span class="danger" ng-show="form.$error.required">Please fill all fields!</span>
+                        <span class="danger" ng-show="form.$error.number">Not valid number!</span>
+                        <span class="danger" ng-show="form.$error.min">The value must be positive!</span>
+                        <span class="danger" ng-show="form.name.$error.minlength">The survivor's name is too short!</span>
+                    </div>
+                    <div ng-show="submitted">
+                        <span class="danger" ng-show="!survivor.lonlat">Please inform your position!</span>
+                    </div>
+                    <div ng-show="geolocationError">
+                        <span class="info">Error in geolocation: {{geolocationError}}. Please search your position.</span>
+                    </div>
+                    <div ng-show="internalError">
+                        <span class="danger">Internal Error: {{internalError}}</span>
+                    </div>
+
+                    <input name="uSubmit" ng-disabled="!form.$valid" type="submit"
+                           class="btn btn-default" ng-click="processAddition()"
+                           value="Add"/>
+                    <a class="btn btn-cancel" ng-href="#/">Cancel</a>
+                </td>
+            </tr>
+        </table>
+
+
+        <div class="footer" ng-show="processed">
+            <span class="success">New survivor included!</span><br><br>
+
+            <a class="btn btn-default" ng-click="reloadRoute()"><i class="fa fa-plus"></i> New Survivor</a>
+            <a class="btn btn-cancel" ng-href="#/">Back</a>
+        </div>
+    </form>
+</div>

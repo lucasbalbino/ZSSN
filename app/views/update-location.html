@@ -1,0 +1,71 @@
+<div class="addition" ng-controller="UpdateLocationCtrl">
+    <p>Updating location</p>
+
+    <form name="form" novalidate>
+        <table ng-show="!processed">
+            <tr>
+                <td>
+                    <label for="fromUser"> You are </label>
+                    <select id="fromUser" ng-model="selectedSurvivor"
+                            ng-options="person.name for person in people track by person.id"
+                            ng-change="updateCurrentMap(selectedSurvivor)">
+                    </select><br>
+
+                    <div class="small">Click <a ng-href="#/infection-list">here</a>, if your name isn't in this list</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="form">
+                    <label for="currentLocation">Current Location:</label> <span class="lonlat">{{selectedSurvivor.lonlat}}</span><br>
+                    <ui-gmap-google-map id="currentLocation" center="currentMap.center" zoom="currentMap.zoom"
+                                        options="currentMap.options" events="currentMap.events">
+
+                        <ui-gmap-marker coords="currentMap.marker" idkey="currentMap.marker.id" options="currentMap.marker.options" events="currentMap.marker.events">
+                        </ui-gmap-marker>
+
+                    </ui-gmap-google-map>
+
+                </td>
+                <td class="form">
+                    <label for="newLocation">New Location:</label> <span class="lonlat">{{newLocation.lonlat}}</span><br>
+                    <ui-gmap-google-map id="newLocation" center="newMap.center" zoom="newMap.zoom"
+                                        options="newMap.options" events="newMap.events">
+
+                        <ui-gmap-marker coords="newMap.marker" idkey="newMap.marker.id" options="newMap.marker.options" events="newMap.marker.events">
+                        </ui-gmap-marker>
+
+                    </ui-gmap-google-map>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td class="footer">
+                    <div ng-show="submitted">
+                        <span class="danger" ng-show="!selectedSurvivor">You have to selected yourself in the list!</span>
+                        <span class="danger" ng-show="!newLocation.lonlat">Please inform your new position!</span>
+                        <span class="danger" ng-show="isSameLocation(currentMap.marker, newMap.marker)">The current and the new location is the same!</span>
+                    </div>
+                    <div ng-show="geolocationError">
+                        <span class="info">Error in geolocation: {{geolocationError}}. Please search your position.</span>
+                    </div>
+                    <div ng-show="internalError">
+                        <span class="danger">Internal Error: {{internalError}}</span>
+                    </div>
+
+                    <input name="uSubmit" ng-disabled="!form.$valid" type="submit"
+                           class="btn btn-default" ng-click="processUpdate()"
+                           value="Update"/>
+                    <a class="btn btn-cancel" ng-href="#/">Cancel</a>
+                </td>
+            </tr>
+        </table>
+
+
+        <div class="footer" ng-show="processed">
+            <span class="success">Your location has been updated!</span><br><br>
+
+            <a class="btn btn-cancel" ng-href="#/">Back</a>
+        </div>
+    </form>
+</div>

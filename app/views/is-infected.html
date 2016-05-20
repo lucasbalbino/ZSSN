@@ -1,0 +1,43 @@
+<div class="container cabecalho-esquerdo" ng-controller="IsInfectedCtrl">
+    <div class="row">
+        <div ng-show="!reportInfection">
+            <h2>
+                Is someone infected?
+                <a class="btn btn-default" ng-click="processInfection()">Report here!</a>
+            </h2>
+        </div>
+
+        <div ng-show="reportInfection">
+            <h2>Who is it?</h2>
+
+            <label for="fromUser"> You are </label>
+            <select id="fromUser" ng-model="selectedFromSurvivor"
+                    ng-options="person.name for person in people track by person.id">
+            </select>
+
+            <label for="toUser"> Person Infected </label>
+            <select id="toUser" ng-model="selectedToSurvivor"
+                    ng-options="person.name for person in people track by person.id">
+            </select>
+            <a class="btn btn-default" type="submit" ng-click="flagInfection()">FLAG!</a>
+
+
+            <div ng-show="submitted">
+                <span class="danger" ng-show="!selectedFromSurvivor">Please select yourself!</span>
+                <span class="danger" ng-show="!selectedToSurvivor">Please insert the infected person!</span>
+            </div>
+            <div ng-show="submitted">
+                <span class="danger" ng-show="(selectedFromSurvivor.id == selectedToSurvivor.id)">
+                    You cannot flag yourself! If you think that you are infected, click <a ng-href="#/infection-list">here</a>
+                </span>
+            </div>
+            <div ng-show="internalError">
+                <span class="danger">Internal Error: {{internalError}}</span>
+            </div>
+        </div>
+
+        <div ng-show="submitted">
+            <span class="info" ng-show="processed">Your request was processed. Stay away from {{selectedToSurvivor.name}}...</span>
+        </div>
+    </div>
+</div>

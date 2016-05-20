@@ -1,0 +1,41 @@
+<div class="trade" ng-controller="InfectionListCtrl">
+    <div ng-show="!submitted">
+        <span>If your name isn't in the trade/update list, you maybe be infected...</span><br><br><br>
+
+        <table>
+            <tr>
+                <td>
+                    <span>Are you one of those people?</span><br><br>
+                    <span ng-repeat="person in infectedPeople">{{person.name}}<br></span>
+                </td>
+                <td>
+                    <a class="btn btn-default" ng-click="(submitted = true)">Yes, I am</a><br><br>
+                    <a class="btn btn-cancel" ng-href="#/add-survivor">No, I'm a new survivor!</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div ng-show="submitted && !processed">
+        <span>Prove that you're not infected!</span><br><br>
+
+        <div>
+            <label class="question" for="question">What's the answer to life,<br>the universe and everything?</label><br><br><br>
+            <input id="question" class="lg" type="text" ng-model="answer">
+            <a class="btn btn-default" type="submit" ng-click="processQuestion()">Submit</a>
+        </div>
+    </div>
+
+    <div ng-show="processed">
+        <span class="success" ng-show="(answer == '42')">
+            You're not infected!<br>
+            Please report to the administrator and ask to include this fun feature! <i class="fa fa-gamepad"></i><br><br>
+            <a class="btn btn-cancel" ng-href="#/">Back</a>
+        </span>
+        <span class="danger" ng-show="(answer != '42')">
+            You're infected!<br>
+            This computer will self destruct in {{seconds}} seconds...<br>
+            <span ng-show="(seconds == 0)">Just kidding!</span>
+        </span>
+    </div>
+</div>

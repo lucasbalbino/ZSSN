@@ -1,0 +1,119 @@
+<div class="trade" ng-controller="TradeItemsCtrl">
+    <p>Trading Items</p>
+
+    <form name="form" novalidate>
+        <table ng-show="!processed">
+            <tr>
+                <td>
+                    <label for="fromUser"> You are </label>
+                    <select id="fromUser" ng-model="selectedFromSurvivor"
+                            ng-options="person.name for person in people track by person.id"
+                            ng-change="fetchProperties(selectedFromSurvivor)">
+                    </select>
+
+                    <span class="highlighted"><i class="fa fa-exchange"></i></span>
+
+                    <label for="toUser"> Will exchange with </label>
+                    <select id="toUser" ng-model="selectedToSurvivor"
+                            ng-options="person.name for person in people track by person.id"
+                            ng-change="fetchProperties(selectedToSurvivor)">
+                    </select><br>
+
+                    <div class="small">Click <a ng-href="#/infection-list">here</a>, if your name isn't in these lists</div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="list">
+                    <span id="itemsFrom">Select from your List:<br>
+                        <label for="itemFromWater">Water <i class="fa fa-tint"></i></label>
+                        <input id="itemFromWater" name="itemFromWater" type="number" ng-model="itemsFrom.water" min="0"
+                               max="{{selectedFromSurvivor.item.water}}" required> of {{selectedFromSurvivor.item.water}} items<br>
+
+                        <label for="itemFromFood">Food <i class="fa fa-cutlery"></i></label>
+                        <input id="itemFromFood" name="itemFromFood" type="number" ng-model="itemsFrom.food" min="0"
+                               max="{{selectedFromSurvivor.item.food}}" required> of {{selectedFromSurvivor.item.food}} items<br>
+
+                        <label for="itemFromMedication">Medication <i class="fa fa-medkit"></i></label>
+                        <input id="itemFromMedication" name="itemFromMedication" type="number"
+                               ng-model="itemsFrom.medication" min="0"
+                               max="{{selectedFromSurvivor.item.medication}}" required> of {{selectedFromSurvivor.item.medication}} items<br>
+
+                        <label for="itemFromAmmunition">Ammunition <i class="fa fa-bomb"></i></label>
+                        <input id="itemFromAmmunition" name="itemFromAmmunition" type="number"
+                               ng-model="itemsFrom.ammunition" min="0"
+                               max="{{selectedFromSurvivor.item.ammunition}}" required> of {{selectedFromSurvivor.item.ammunition}} items<br>
+
+                        <span>Your Points: {{computePoints(itemsFrom)}}</span>
+                    </span>
+                </td>
+
+                <td class="list">
+                    <span id="itemsTo">Trade to his/her List:<br>
+                        <label for="itemToWater">Water <i class="fa fa-tint"></i></label>
+                        <input id="itemToWater" type="number" ng-model="itemsTo.water" min="0"
+                               max="{{selectedToSurvivor.item.water}}" required> of {{selectedToSurvivor.item.water}} items<br>
+
+                        <label for="itemToFood">Food <i class="fa fa-cutlery"></i></label>
+                        <input id="itemToFood" type="number" ng-model="itemsTo.food"
+                               min="0" max="{{selectedToSurvivor.item.food}}" required> of {{selectedToSurvivor.item.food}} items<br>
+
+                        <label for="itemToMedication">Medication <i class="fa fa-medkit"></i></label>
+                        <input id="itemToMedication" type="number" ng-model="itemsTo.medication" min="0"
+                               max="{{selectedToSurvivor.item.medication}}" required> of {{selectedToSurvivor.item.medication}} items<br>
+
+                        <label for="itemToAmmunition">Ammunition <i class="fa fa-bomb"></i></label>
+                        <input id="itemToAmmunition" type="number" ng-model="itemsTo.ammunition" min="0"
+                               max="{{selectedToSurvivor.item.ammunition}}" required> of {{selectedToSurvivor.item.ammunition}} items<br>
+
+                        <span>His/Her Points: {{computePoints(itemsTo)}}</span>
+                    </span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="footer">
+                    <div>
+                        <span class="danger" ng-show="form.$error.required">Required!</span>
+                        <span class="danger" ng-show="form.$error.number">Not valid number!</span>
+                        <span class="danger" ng-show="form.$error.max">A max value has been exceeded!</span>
+                        <span class="danger" ng-show="form.$error.min">The value must be positive!</span>
+                    </div>
+                    <div ng-show="submitted">
+                        <span class="danger" ng-show="computePoints(itemsTo) != computePoints(itemsFrom)">
+                            The transaction has to be equal, with the same number of points!
+                        </span>
+                        <span class="danger" ng-show="computePoints(itemsTo) == 0 || computePoints(itemsFrom) == 0">
+                            The points must be greater than zero!
+                        </span>
+                    </div>
+                    <div ng-show="submitted">
+                        <span class="danger" ng-show="(!selectedFromSurvivor.name || !selectedToSurvivor.name)">
+                            One of the survivors included in the trade wasn't selected!
+                        </span>
+                    </div>
+                    <div ng-show="submitted">
+                        <span class="danger" ng-show="selectedFromSurvivor.id == selectedToSurvivor.id">
+                            You can only trade itens with two diferent persons!
+                        </span>
+                    </div>
+                    <div ng-show="internalError">
+                        <span class="danger">Internal Error: {{internalError}}</span>
+                    </div>
+
+                    <input name="uSubmit" ng-disabled="!form.$valid" type="submit"
+                           class="btn btn-default" ng-click="processTrade()"
+                           value="Trade"/>
+                    <a class="btn btn-cancel" ng-href="#/">Cancel</a>
+                </td>
+            </tr>
+        </table>
+
+        <div class="footer" ng-show="processed">
+            <span class="success">The transaction was processed successfully!</span><br><br>
+
+            <a class="btn btn-default" ng-click="reloadRoute()"><i class="fa fa-exchange"></i> New Trade</a>
+            <a class="btn btn-cancel" ng-href="#/">Back</a>
+        </div>
+    </form>
+</div>
